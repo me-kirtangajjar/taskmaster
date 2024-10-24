@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const config = require("../config/config");
-const userModel = require("../models/user");
+const userModel = require("../models/userModel");
+const taskModel = require("../models/taskModel");
 
 module.exports = {
   connect: async () => {
@@ -16,5 +17,8 @@ module.exports = {
   },
   registerUser: async (payload) => {
     return userModel.create(payload);
+  },
+  createNewTask: async (payload) => {
+    return taskModel.create(payload);
   },
 };

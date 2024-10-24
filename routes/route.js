@@ -1,15 +1,12 @@
 const router = require("express").Router();
+const { createTask } = require("../controllers/taskController");
 const { register, login } = require("../controllers/userController");
-const httpError = require("../util/httpError");
+const { checkAuth } = require("../middlewares/checkAuth");
 
-router.route("/").get((req, res, next) => {
-  try {
-    throw new Error("her");
-  } catch (err) {
-    httpError(next, err, req);
-  }
-});
-router.route("/register").post(register);
-router.route("/login").post(login);
+router.route("/users/register").post(register);
+router.route("/users/login").post(login);
+router.route("/users/profile").get();
+
+router.route("/tasks").post(checkAuth, createTask);
 
 module.exports = router;

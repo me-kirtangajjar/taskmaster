@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
     const newUser = await databaseService.registerUser(payload);
     httpResponse(req, res, 201, responseMessage.SUCCESS, newUser);
   } catch (error) {
-    console.error();
+    
     return httpError(
       next,
       new Error(responseMessage.SOMETHING_WENT_WRONG),
@@ -59,7 +59,7 @@ const login = async (req, res) => {
 
     httpResponse(req, res, 200, responseMessage.SUCCESS, { token });
   } catch (error) {
-    console.error();
+    
     return res.status(500).json({ error: "Something went wrong, Try again" });
   }
 };
