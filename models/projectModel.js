@@ -1,19 +1,19 @@
 const { Schema, model } = require("mongoose");
+const { schema } = require("./taskModel");
 
-const taskSchema = new Schema(
+const projectSchema = new Schema(
   {
     title: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
-    dueDate: { type: Date },
-    comments: [{ type: Schema.Types.ObjectId, ref: "comment" }],
-    assignedTo: { type: Schema.Types.ObjectId, ref: "user" },
+    tasks: [{ type: Schema.Types.ObjectId, ref: "task" }],
     status: {
       type: String,
       enum: ["todo", "inprogress", "completed"],
       default: "todo",
     },
+    dueDate: { type: Date },
   },
   { timestamps: true }
 );
 
-module.exports = model("task", taskSchema);
+module.exports = model("project", projectSchema);

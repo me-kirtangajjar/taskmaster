@@ -1,7 +1,5 @@
 const { default: mongoose } = require("mongoose");
 const config = require("../config/config");
-const userModel = require("../models/userModel");
-const taskModel = require("../models/taskModel");
 
 module.exports = {
   connect: async () => {
@@ -11,14 +9,5 @@ module.exports = {
     } catch (err) {
       throw err;
     }
-  },
-  findUserByEmail: (email) => {
-    return userModel.findOne({ email });
-  },
-  registerUser: async (payload) => {
-    return userModel.create(payload);
-  },
-  createNewTask: async (payload) => {
-    return taskModel.create(payload);
   },
 };

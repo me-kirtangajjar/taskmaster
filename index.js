@@ -1,13 +1,11 @@
 const express = require("express");
 const databaseService = require("./services/databaseService");
 const globalErrorHandler = require("./middlewares/globalErrorHandler");
-const httpError = require("./util/httpError");
 
 const app = express();
 
 (async () => {
   try {
-    
     const connection = await databaseService.connect();
     console.log("DB Connected", connection.name);
   } catch (err) {

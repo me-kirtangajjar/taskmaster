@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const responseMessage = require("../constant/responseMessage");
 const httpError = require("../util/httpError");
 const quicker = require("../util/quicker");
@@ -13,6 +14,8 @@ const checkAuth = (req, res, next) => {
     token = token.split(" ")[1];
 
     const isTokenValid = quicker.verifyToken(token);
+    req.uId = isTokenValid.id;
+    req.uEmail = isTokenValid.email;
 
     next();
   } catch (err) {
