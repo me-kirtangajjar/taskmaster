@@ -29,8 +29,6 @@ const getAllTasks = async (req, res, next) => {
     if (status) query.status = status;
 
     const tasks = await taskModel.find(query);
-    console.log(tasks);
-    // const tasks = await taskService.getAllUserTask(req.uId);
     httpResponse(req, res, 200, responseMessage.SUCCESS, tasks);
   } catch (err) {
     httpError(next, err, req);

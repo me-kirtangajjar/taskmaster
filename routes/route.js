@@ -12,13 +12,14 @@ const {
   register,
   login,
   getProfile,
+  updateProfile,
 } = require("../controllers/userController");
 const { checkAuth } = require("../middlewares/checkAuth");
 
 // Users
 router.route("/users/register").post(register);
 router.route("/users/login").post(login);
-router.route("/users/profile").get(checkAuth, getProfile);
+router.route("/users/profile").get(checkAuth, getProfile).put(checkAuth,updateProfile)
 
 // Tasks
 router.route("/tasks").post(checkAuth, createTask).get(checkAuth, getAllTasks);
