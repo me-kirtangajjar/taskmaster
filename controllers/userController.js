@@ -1,5 +1,6 @@
 const responseMessage = require("../constant/responseMessage");
-const userService = require('../services/userService')
+const userModel = require("../models/userModel");
+const userService = require("../services/userService");
 const httpError = require("../util/httpError");
 const httpResponse = require("../util/httpResponse");
 const quicker = require("../util/quicker");
@@ -53,7 +54,7 @@ const login = async (req, res) => {
 
     const token = quicker.generateToken({
       id: user._id,
-      email:user.email
+      email: user.email,
     });
 
     httpResponse(req, res, 200, responseMessage.SUCCESS, { token });
@@ -78,4 +79,25 @@ const getProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, getProfile };
+const updateProfile = async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+    if (password) password = await quicker.hashPassword(password);
+
+    const user = await userModel.findByIdAndUpdate(
+      req.uId,
+      {
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+      { new: true }
+    );
+    httpResponse(req, res, 200, responseMessage.SUCCESS, user);
+  } catch (err) {
+    httpError(next, err, req);
+  }
+};
+
+module.exports = { register, login, getProfile, updateProfile };
